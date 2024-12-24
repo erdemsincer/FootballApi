@@ -1,61 +1,77 @@
 ﻿@{
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
+<h1 class="mb-4">-----------------------------</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4><i class="fas fa-exchange-alt me-2"></i>Oyuncu Transferi</h4>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+                        </div>
+                    }
 
-<h1 class="mb-4">Oyuncu Transferi</h1>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+                        </div>
+                    }
 
-<!-- Başarı ve Hata Mesajları -->
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
+                    <form asp-action="Transfer" method="post">
+                        <div class="form-group mb-3">
+                            <label for="playerId" class="form-label">Oyuncu Seç</label>
+                            <select id="playerId" name="playerId" class="form-control" required>
+                                @if (ViewBag.Players is IEnumerable<FootballApi.Application.Dtos.PlayerDto> players && players.Any())
+                                {
+                                    @foreach (var player in players)
+                                    {
+                                        <option value="@player.Id">
+                                            @player.Name (@player.TeamId ?? "Takımsız")
+                                        </option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">Oyuncu bulunamadı</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="newTeamId" class="form-label">Yeni Takım Seç</label>
+                            <select id="newTeamId" name="newTeamId" class="form-control" required>
+                                @if (ViewBag.Teams is IEnumerable<FootballApi.Application.Dtos.TeamDto> teams && teams.Any())
+                                {
+                                    @foreach (var team in teams)
+                                    {
+                                        <option value="@team.Id">@team.Name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">Takım bulunamadı</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success me-3">
+                                <i class="fas fa-exchange-alt me-2"></i>Transfer Et
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["ErrorMessage"]
-    </div>
-}
-
-<!-- Transfer Formu -->
-<form asp-action="Transfer" method="post" class="mt-4">
-    <div class="form-group mb-3">
-        <label for="playerId">Oyuncu Seç</label>
-        <select id="playerId" name="playerId" class="form-control">
-            @if (ViewBag.Players is IEnumerable<FootballApi.Application.Dtos.PlayerDto> players && players.Any())
-            {
-                @foreach (var player in players)
-                {
-                    <option value="@player.Id">
-                        @player.Name (@player.TeamId ?? "Takımsız")
-                    </option>
-                }
-            }
-            else
-            {
-                <option value="">Oyuncu bulunamadı</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group mb-3">
-        <label for="newTeamId">Yeni Takım Seç</label>
-        <select id="newTeamId" name="newTeamId" class="form-control">
-            @if (ViewBag.Teams is IEnumerable<FootballApi.Application.Dtos.TeamDto> teams && teams.Any())
-            {
-                @foreach (var team in teams)
-                {
-                    <option value="@team.Id">@team.Name</option>
-                }
-            }
-            else
-            {
-                <option value="">Takım bulunamadı</option>
-            }
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Transfer Et</button>
-</form>
+</div>

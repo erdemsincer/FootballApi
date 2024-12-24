@@ -1,7 +1,7 @@
-﻿@model FootballApi.Application.Dtos.PlayerDto
+﻿@model FootballApi.Application.Dtos.LeagueDto
 
 @{
-    ViewData["Title"] = "Yeni Oyuncu Ekle";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 <h1 class="mb-4">-----------------------------</h1>
@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="card shadow-lg">
                 <div class="card-header bg-success text-white text-center">
-                    <h4><i class="fas fa-user-plus me-2"></i>Yeni Oyuncu Ekle</h4>
+                    <h4><i class="fas fa-plus-circle me-2"></i>Yeni Lig Ekle</h4>
                 </div>
                 <div class="card-body">
                     @if (TempData["SuccessMessage"] != null)
@@ -29,38 +29,28 @@
 
                     <form asp-action="Create" method="post">
                         <div class="form-group mb-3">
-                            <label for="Name" class="form-label">Ad</label>
-                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Oyuncunun adını giriniz..." required>
+                            <label for="Name" class="form-label">Lig Adı</label>
+                            <input type="text" name="Name" class="form-control" id="Name" placeholder="Lig adı giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="LastName" class="form-label">Soyad</label>
-                            <input type="text" class="form-control" id="LastName" name="LastName" placeholder="Oyuncunun soyadını giriniz..." required>
+                            <label for="Country" class="form-label">Ülke</label>
+                            <input type="text" name="Country" class="form-control" id="Country" placeholder="Lig ülkesi giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Age" class="form-label">Yaş</label>
-                            <input type="number" class="form-control" id="Age" name="Age" placeholder="Oyuncunun yaşını giriniz...">
+                            <label for="NumberOfTeams" class="form-label">Takım Sayısı</label>
+                            <input type="number" name="NumberOfTeams" class="form-control" id="NumberOfTeams" placeholder="Takım sayısını giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Nationality" class="form-label">Milliyet</label>
-                            <input type="text" class="form-control" id="Nationality" name="Nationality" placeholder="Oyuncunun milliyetini giriniz...">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="BirthPlace" class="form-label">Doğum Yeri</label>
-                            <input type="text" class="form-control" id="BirthPlace" name="BirthPlace" placeholder="Oyuncunun doğum yerini giriniz...">
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="Photo" class="form-label">Fotoğraf URL</label>
-                            <input type="url" class="form-control" id="Photo" name="Photo" placeholder="Oyuncunun fotoğraf URL'sini giriniz...">
+                            <label for="LogoUrl" class="form-label">Logo URL</label>
+                            <input type="url" name="LogoUrl" class="form-control" id="LogoUrl" placeholder="Logo URL'sini giriniz..." />
                         </div>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success me-3">
-                                <i class="fas fa-save me-2"></i>Kaydet
+                                <i class="fas fa-save me-2"></i>Ekle
                             </button>
                             <a asp-action="Index" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left me-2"></i>Geri Dön
@@ -72,3 +62,4 @@
         </div>
     </div>
 </div>
+

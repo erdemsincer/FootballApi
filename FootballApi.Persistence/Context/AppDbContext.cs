@@ -14,6 +14,8 @@ namespace Model.Context
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerStatistic> PlayerStatistics { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Stadium> Stadiums { get; set; }
+        public DbSet<League> Leagues { get; set; }
 
 
 

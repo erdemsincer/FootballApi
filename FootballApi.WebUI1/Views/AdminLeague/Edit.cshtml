@@ -1,17 +1,15 @@
-﻿@using FootballApi.Application.Dtos
-@model IEnumerable<TeamDto>
+﻿@model FootballApi.Application.Dtos.LeagueDto
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
-
 <h1 class="mb-4">-----------------------------</h1>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white text-center">
-                    <h4><i class="fas fa-plus-circle me-2"></i>Takım Ekleme</h4>
+                <div class="card-header bg-warning text-white text-center">
+                    <h4><i class="fas fa-edit me-2"></i>Lig Düzenle</h4>
                 </div>
                 <div class="card-body">
                     @if (TempData["SuccessMessage"] != null)
@@ -28,29 +26,31 @@
                         </div>
                     }
 
-                    <form asp-action="Create" method="post">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" name="Id" value="@Model.Id" />
+
                         <div class="form-group mb-3">
-                            <label for="Name" class="form-label">Takım Adı</label>
-                            <input type="text" id="Name" name="Name" class="form-control" placeholder="Takım adını giriniz..." required />
+                            <label for="Name" class="form-label">Lig Adı</label>
+                            <input type="text" name="Name" class="form-control" id="Name" value="@Model.Name" placeholder="Lig adı giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="Country" class="form-label">Ülke</label>
-                            <input type="text" id="Country" name="Country" class="form-control" placeholder="Ülke adını giriniz..." required />
+                            <input type="text" name="Country" class="form-control" id="Country" value="@Model.Country" placeholder="Lig ülkesi giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Stadium" class="form-label">Stadyum</label>
-                            <input type="text" id="Stadium" name="Stadium" class="form-control" placeholder="Stadyum adını giriniz..." required />
+                            <label for="NumberOfTeams" class="form-label">Takım Sayısı</label>
+                            <input type="number" name="NumberOfTeams" class="form-control" id="NumberOfTeams" value="@Model.NumberOfTeams" placeholder="Takım sayısını giriniz..." required />
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="Coach" class="form-label">Teknik Direktör</label>
-                            <input type="text" id="Coach" name="Coach" class="form-control" placeholder="Teknik direktör adını giriniz..." required />
+                            <label for="LogoUrl" class="form-label">Logo URL</label>
+                            <input type="url" name="LogoUrl" class="form-control" id="LogoUrl" value="@Model.LogoUrl" placeholder="Logo URL'sini giriniz..." />
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary me-3">
+                            <button type="submit" class="btn btn-warning me-3">
                                 <i class="fas fa-save me-2"></i>Kaydet
                             </button>
                             <a asp-action="Index" class="btn btn-secondary">
@@ -63,6 +63,4 @@
         </div>
     </div>
 </div>
-
-
 

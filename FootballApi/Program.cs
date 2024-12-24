@@ -11,6 +11,10 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddHttpClient<IPlayerService, FootballService>();
 builder.Services.AddScoped<IPlayerStatisticService, PlayerStatisticService>();
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddScoped<IStadiumService, StadiumService>();
+builder.Services.AddScoped<IStadiumRepository, StadiumRepository>();
+builder.Services.AddScoped<ILeagueService, LeagueService>();
+builder.Services.AddScoped<ILeagueRepository, LeagueRepository>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllersWithViews(); // MVC desteði ekleniyor
