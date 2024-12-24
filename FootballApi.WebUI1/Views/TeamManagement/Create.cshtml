@@ -1,0 +1,35 @@
+﻿@using FootballApi.Application.Dtos
+@model IEnumerable<TeamDto>
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<h1 class="mb-4">       </h1>
+<h1 class="mb-4">      </h1>
+<h1 class="mb-4">      </h1>
+<h1 class="">       </h1>
+<h1 class="mb-4">Takım Ekleme</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="Name">Takım Adı</label>
+        <input type="text" id="Name" name="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Country">Ülke</label>
+        <input type="text" id="Country" name="Country" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Stadium">Stadyum</label>
+        <input type="text" id="Stadium" name="Stadium" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="Coach">Teknik Direktör</label>
+        <input type="text" id="Coach" name="Coach" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+

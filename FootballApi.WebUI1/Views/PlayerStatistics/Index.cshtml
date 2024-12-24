@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FootballApi.Domain.Entities.PlayerStatistic>
+
+@{
+    ViewData["Title"] = "Oyuncu İstatistikleri";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Oyuncu İstatistikleri</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            Henüz hiçbir oyuncu istatistiği eklenmemiş.
+        </div>
+    }
+    else
+    {
+        <a href="@Url.Action("Create", "PlayerStatistics")" class="btn btn-primary mb-3">+ Yeni İstatistik Ekle</a>
+
+        <table class="table table-hover table-striped table-responsive-md text-center align-middle shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Oyuncu</th>
+                    <th>Maç Sayısı</th>
+                    <th>Gol</th>
+                    <th>Asist</th>
+                    <th>Kilit Pas</th>
+                    <th>Pas Yüzdesi</th>
+                    <th>Sarı Kart</th>
+                    <th>Kırmızı Kart</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var stat in Model)
+                {
+                    <tr>
+                        <td>@stat.Id</td>
+                        <td>@stat.Player.Name</td>
+                        <td>@stat.MatchesPlayed</td>
+                        <td>@stat.Goals</td>
+                        <td>@stat.Assists</td>
+                        <td>@stat.KeyPasses</td>
+                        <td>@stat.PassAccuracy %</td>
+                        <td>@stat.YellowCards</td>
+                        <td>@stat.RedCards</td>
+                        <td>
+                            <a href="@Url.Action("Edit", "PlayerStatistics", new { id = stat.Id })" class="btn btn-sm btn-warning">Düzenle</a>
+                            <form asp-action="Delete" asp-controller="PlayerStatistics" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@stat.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bu istatistiği silmek istediğinize emin misiniz?');">Sil</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

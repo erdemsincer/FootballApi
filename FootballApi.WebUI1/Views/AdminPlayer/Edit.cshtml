@@ -1,0 +1,58 @@
+﻿@model FootballApi.Application.Dtos.PlayerDto
+
+@{
+    ViewData["Title"] = "Oyuncu Düzenle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Oyuncu Düzenle</h2>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <form asp-action="Edit" method="post" class="form-horizontal">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Name">Ad</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName">Soyad</label>
+            <input asp-for="LastName" class="form-control" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Age">Yaş</label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Nationality">Milliyet</label>
+            <input asp-for="Nationality" class="form-control" />
+            <span asp-validation-for="Nationality" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="BirthPlace">Doğum Yeri</label>
+            <input asp-for="BirthPlace" class="form-control" />
+            <span asp-validation-for="BirthPlace" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Photo">Fotoğraf URL</label>
+            <input asp-for="Photo" class="form-control" />
+            <span asp-validation-for="Photo" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+﻿@model FootballApi.Application.Dtos.PlayerDto
+
+@{
+    ViewData["Title"] = "Yeni Oyuncu Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>--------------</h2>
+    <h2>Yeni Oyuncu Ekle</h2>
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label for="Name">Ad</label>
+            <input type="text" class="form-control" id="Name" name="Name" required>
+        </div>
+        <div class="form-group">
+            <label for="LastName">Soyad</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" required>
+        </div>
+        <div class="form-group">
+            <label for="Age">Yaş</label>
+            <input type="number" class="form-control" id="Age" name="Age">
+        </div>
+        <div class="form-group">
+            <label for="Nationality">Milliyet</label>
+            <input type="text" class="form-control" id="Nationality" name="Nationality">
+        </div>
+        <div class="form-group">
+            <label for="BirthPlace">Doğum Yeri</label>
+            <input type="text" class="form-control" id="BirthPlace" name="BirthPlace">
+        </div>
+        <div class="form-group">
+            <label for="Photo">Fotoğraf URL</label>
+            <input type="text" class="form-control" id="Photo" name="Photo">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Kaydet</button>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<FootballApi.Application.Dtos.PlayerDto>
+
+@{
+    ViewData["Title"] = "Takım Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Takım Listesi</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Yaş</th>
+            <th>Doğum Yeri</th>
+            <th>Milliyet</th>
+            <th>Fotoğraf</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int count = 1;
+            foreach (var player in Model)
+            {
+                <tr>
+                    <td>@count</td>
+                    <td>@player.Name</td>
+                    <td>@player.LastName</td>
+                    <td>@player.Age</td>
+                    <td>@player.BirthPlace</td>
+                    <td>@player.Nationality</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(player.Photo))
+                        {
+                            <img src="@player.Photo" alt="Fotoğraf" style="width:50px; height:auto;" />
+                        }
+                        else
+                        {
+                            <span>Fotoğraf Yok</span>
+                        }
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7">Kayıtlı oyuncu bulunamadı.</td>
+            </tr>
+        }
+    </tbody>
+</table>

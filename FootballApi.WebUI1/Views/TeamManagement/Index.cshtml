@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FootballApi.Domain.Entities.Team>
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+<h1 class="">       </h1>
+<h1 class="">      </h1>
+<h1 class="">      </h1>
+<h1 class="">       </h1>
+<h1 class="mb-4">Takım Yönetimi</h1>
+
+<div class=" d-flex justify-content-between align-items-center mb-3">
+    <h5>Mevcut Takımlar</h5>
+    <a asp-action="Create" class="btn btn-success">+ Yeni Oluştur</a>
+</div>
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Takım Adı</th>
+            <th scope="col">Ülke</th>
+            <th scope="col">Stadyum</th>
+            <th scope="col">Teknik Direktör</th>
+            <th scope="col">Oyuncu Sayısı</th>
+            <th scope="col" class="text-center">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+            <tr>
+                <td>@team.Id</td>
+                <td>@team.Name</td>
+                <td>@team.Country</td>
+                <td>@team.Stadium</td>
+                <td>@team.Coach</td>
+                <td>@team.Players?.Count() ?? 0</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@team.Id" class="btn btn-warning btn-sm mx-1">
+                        <i class="fas fa-edit"></i> Düzenle
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@team.Id" method="post" class="d-inline-block">
+                        <button type="submit" class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-trash"></i> Sil
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-3">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger mt-3">
+        @TempData["ErrorMessage"]
+    </div>
+}

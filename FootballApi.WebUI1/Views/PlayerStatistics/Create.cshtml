@@ -1,0 +1,56 @@
+﻿@model FootballApi.Domain.Entities.PlayerStatistic
+
+@{
+    ViewData["Title"] = "Yeni İstatistik Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Yeni Oyuncu İstatistiği Ekle</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <form asp-action="Create" asp-controller="PlayerStatistics" method="post">
+        <div class="form-group">
+            <label for="PlayerId">Oyuncu ID</label>
+            <input type="number" class="form-control" id="PlayerId" name="PlayerId" placeholder="Oyuncu ID" required />
+        </div>
+        <div class="form-group">
+            <label for="MatchesPlayed">Maç Sayısı</label>
+            <input type="number" class="form-control" id="MatchesPlayed" name="MatchesPlayed" placeholder="Maç Sayısı" required />
+        </div>
+        <div class="form-group">
+            <label for="Goals">Gol</label>
+            <input type="number" class="form-control" id="Goals" name="Goals" placeholder="Gol Sayısı" required />
+        </div>
+        <div class="form-group">
+            <label for="Assists">Asist</label>
+            <input type="number" class="form-control" id="Assists" name="Assists" placeholder="Asist Sayısı" required />
+        </div>
+        <div class="form-group">
+            <label for="KeyPasses">Kilit Pas</label>
+            <input type="number" class="form-control" id="KeyPasses" name="KeyPasses" placeholder="Kilit Pas Sayısı" />
+        </div>
+        <div class="form-group">
+            <label for="PassAccuracy">Pas Yüzdesi</label>
+            <input type="number" step="0.01" class="form-control" id="PassAccuracy" name="PassAccuracy" placeholder="Pas Yüzdesi" />
+        </div>
+        <div class="form-group">
+            <label for="YellowCards">Sarı Kart</label>
+            <input type="number" class="form-control" id="YellowCards" name="YellowCards" placeholder="Sarı Kart Sayısı" />
+        </div>
+        <div class="form-group">
+            <label for="RedCards">Kırmızı Kart</label>
+            <input type="number" class="form-control" id="RedCards" name="RedCards" placeholder="Kırmızı Kart Sayısı" />
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="@Url.Action("Index", "PlayerStatistics")" class="btn btn-secondary">Geri</a>
+    </form>
+</div>
