@@ -24,6 +24,8 @@ namespace FootballApi.Domain.Entities
         public double PassAccuracy { get; set; }
         public int YellowCards { get; set; }
         public int RedCards { get; set; }
+        public int? TeamId { get; set; }
+        public Team? Team { get; set; }
 
     }
 }

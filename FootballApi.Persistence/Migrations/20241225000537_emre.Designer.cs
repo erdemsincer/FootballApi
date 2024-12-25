@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Model.Context;
 
@@ -10,9 +11,11 @@ using Model.Context;
 namespace FootballApi.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241225000537_emre")]
+    partial class emre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,8 +148,6 @@ namespace FootballApi.Persistence.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.HasIndex("TeamId");
-
                     b.ToTable("PlayerStatistics");
                 });
 
@@ -224,13 +225,7 @@ namespace FootballApi.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FootballApi.Domain.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId");
-
                     b.Navigation("Player");
-
-                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("FootballApi.Domain.Entities.Team", b =>

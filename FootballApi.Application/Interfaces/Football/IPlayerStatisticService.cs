@@ -10,7 +10,7 @@ namespace FootballApi.Application.Interfaces.Football
     public interface IPlayerStatisticService
     {
         Task<IEnumerable<PlayerStatistic>> GetAllStatisticsAsync();
-        Task<PlayerStatistic> GetStatisticByPlayerIdAsync(int playerId);
+        Task<PlayerStatistic> GetStatisticByPlayerIdAsync(int id);
         Task AddStatisticAsync(PlayerStatistic statistic);
         Task UpdateStatisticAsync(PlayerStatistic statistic);
         Task DeleteStatisticAsync(int id);

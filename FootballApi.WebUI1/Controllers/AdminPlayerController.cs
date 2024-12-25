@@ -4,17 +4,18 @@ using FootballApi.Application.Interfaces.Football;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 public class AdminPlayerController : Controller
 {
     private readonly IPlayerService _playerService;
+    private readonly ITeamService _teamService; // Takım servisi
 
-
-    public AdminPlayerController(IPlayerService playerService)
+    public AdminPlayerController(IPlayerService playerService, ITeamService teamService)
     {
         _playerService = playerService;
-  
+        _teamService = teamService;
     }
 
     public async Task<IActionResult> Index()
@@ -23,22 +24,19 @@ public class AdminPlayerController : Controller
         {
             // Veritabanından oyuncu listesini çek
             var players = await _playerService.GetAllPlayersAsync();
-
-            // View'e oyuncuları gönder
             return View(players);
         }
         catch (Exception ex)
         {
-            // Hata durumunda kullanıcıya bilgi ver
             ViewBag.ErrorMessage = "Oyuncu verileri alınırken bir hata oluştu.";
             ViewBag.ErrorDetails = ex.Message;
-            return View(new List<PlayerDto>()); // Boş liste gönder
+            return View(new List<PlayerDto>());
         }
     }
 
     public IActionResult Create()
     {
-        return View(); // Form sayfasını döndür
+        return View();
     }
 
     [HttpPost]
@@ -46,12 +44,10 @@ public class AdminPlayerController : Controller
     {
         if (ModelState.IsValid)
         {
-            // Yeni oyuncu verisini kaydet
             await _playerService.AddPlayerAsync(playerDto);
             return RedirectToAction("Index");
         }
-
-        return View(playerDto); // Hata varsa formu geri döndür
+        return View(playerDto);
     }
 
     [HttpPost]
@@ -66,7 +62,6 @@ public class AdminPlayerController : Controller
         {
             TempData["ErrorMessage"] = $"Silme işlemi sırasında bir hata oluştu: {ex.Message}";
         }
-
         return RedirectToAction("Index");
     }
 
@@ -81,6 +76,8 @@ public class AdminPlayerController : Controller
                 TempData["ErrorMessage"] = "Oyuncu bulunamadı.";
                 return RedirectToAction("Index");
             }
+            var teams = await _teamService.GetAllTeamsAsync(); // Tüm takımları al
+            ViewBag.Teams = teams.Select(t => new { t.Id, t.Name }).ToList(); // Takımları ViewBag'e gönder
             return View(player);
         }
         catch (Exception ex)
@@ -90,7 +87,6 @@ public class AdminPlayerController : Controller
         }
     }
 
-    // Düzenleme İşlemini Kaydeder
     [HttpPost]
     public async Task<IActionResult> Edit(PlayerDto playerDto)
     {
@@ -111,8 +107,39 @@ public class AdminPlayerController : Controller
     }
 
     // Transfer Sayfasını Döndürür
-   
+    [HttpGet]
+    public async Task<IActionResult> Transfer()
+    {
+        try
+        {
+            var players = await _playerService.GetAllPlayersAsync();
+            var teams = await _teamService.GetAllTeamsAsync();
+
+            ViewBag.Players = players;
+            ViewBag.Teams = teams;
+
+            return View();
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Veriler alınırken bir hata oluştu: {ex.Message}";
+            return RedirectToAction("Index");
+        }
     }
 
-
-
+    // Transfer İşlemini Gerçekleştirir
+    [HttpPost]
+    public async Task<IActionResult> Transfer(int playerId, int newTeamId)
+    {
+        try
+        {
+            await _playerService.TransferPlayerAsync(playerId, newTeamId);
+            TempData["SuccessMessage"] = "Oyuncu başarıyla transfer edildi.";
+        }
+        catch (Exception ex)
+        {
+            TempData["ErrorMessage"] = $"Transfer işlemi sırasında bir hata oluştu: {ex.Message}";
+        }
+        return RedirectToAction("Transfer");
+    }
+}
