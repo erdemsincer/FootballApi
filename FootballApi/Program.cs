@@ -5,9 +5,11 @@ using FootballApi.Services;
 using Microsoft.EntityFrameworkCore;
 using Model.Context;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 // Add services to the container.
+
 builder.Services.AddHttpClient<IPlayerService, FootballService>();
 builder.Services.AddScoped<IPlayerStatisticService, PlayerStatisticService>();
 builder.Services.AddScoped<IRepository, Repository>();
@@ -40,5 +42,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"); // Varsayýlan rota ekleniyor
+
+app.MapControllerRoute(
+    name: "compare",
+    pattern: "Transfer/Compare/{player1Id}/{player2Id}",
+    defaults: new { controller = "Transfer", action = "Compare" });
 
 app.Run();

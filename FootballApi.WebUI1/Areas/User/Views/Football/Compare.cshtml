@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FootballApi.Application.Dtos.PlayerDto>
+
+@{
+    ViewData["Title"] = "Oyuncu Karşılaştırma";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Oyuncu Karşılaştırma</h1>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+    }
+    else
+    {
+        <form method="get" action="/User/Football/CompareResult">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="player1" class="form-label">Birinci Oyuncu</label>
+                    <select id="player1" name="player1Id" class="form-select" required>
+                        <option value="">Oyuncu Seçin</option>
+                        @foreach (var player in Model)
+                        {
+                            <option value="@player.Id">@player.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="player2" class="form-label">İkinci Oyuncu</label>
+                    <select id="player2" name="player2Id" class="form-select" required>
+                        <option value="">Oyuncu Seçin</option>
+                        @foreach (var player in Model)
+                        {
+                            <option value="@player.Id">@player.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Karşılaştır</button>
+            </div>
+        </form>
+    }
+</div>

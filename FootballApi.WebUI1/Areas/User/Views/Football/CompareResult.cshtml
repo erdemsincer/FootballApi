@@ -1,0 +1,59 @@
+﻿@model Tuple<FootballApi.Domain.Entities.PlayerStatistic, FootballApi.Domain.Entities.PlayerStatistic>
+
+@{
+    ViewData["Title"] = "Karşılaştırma Sonucu";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Karşılaştırma Sonucu</h1>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+    }
+    else
+    {
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th>İstatistik</th>
+                    <th>@Model.Item1.Player.Name</th>
+                    <th>@Model.Item2.Player.Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Maçlar</td>
+                    <td>@Model.Item1.MatchesPlayed</td>
+                    <td>@Model.Item2.MatchesPlayed</td>
+                </tr>
+                <tr>
+                    <td>Goller</td>
+                    <td>@Model.Item1.Goals</td>
+                    <td>@Model.Item2.Goals</td>
+                </tr>
+                <tr>
+                    <td>Asistler</td>
+                    <td>@Model.Item1.Assists</td>
+                    <td>@Model.Item2.Assists</td>
+                </tr>
+                <tr>
+                    <td>Sarı Kartlar</td>
+                    <td>@Model.Item1.YellowCards</td>
+                    <td>@Model.Item2.YellowCards</td>
+                </tr>
+                <tr>
+                    <td>Kırmızı Kartlar</td>
+                    <td>@Model.Item1.RedCards</td>
+                    <td>@Model.Item2.RedCards</td>
+                </tr>
+                <tr>
+                    <td>Pas İsabeti (%)</td>
+                    <td>@Model.Item1.PassAccuracy.ToString("F2")</td>
+                    <td>@Model.Item2.PassAccuracy.ToString("F2")</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>

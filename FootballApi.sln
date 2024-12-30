@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballApi.Domain", "Footb
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{C93E03D9-88CD-494D-81CF-CB5FB315E470}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballApi.WebUI1", "FootballApi.WebUI1\FootballApi.WebUI1.csproj", "{9F797CA5-8AB9-4002-9937-5F924EBCB3F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballApi.WebUI1", "FootballApi.WebUI1\FootballApi.WebUI1.csproj", "{9F797CA5-8AB9-4002-9937-5F924EBCB3F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,6 +14,7 @@ namespace FootballApi.Application.Interfaces.Football
         Task AddStatisticAsync(PlayerStatistic statistic);
         Task UpdateStatisticAsync(PlayerStatistic statistic);
         Task DeleteStatisticAsync(int id);
+       
 
     }
 }

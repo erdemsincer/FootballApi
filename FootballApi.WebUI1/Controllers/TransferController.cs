@@ -1,6 +1,9 @@
 ﻿using FootballApi.Application.Interfaces;
 using FootballApi.Application.Interfaces.Football;
+using FootballApi.Services;
 using Microsoft.AspNetCore.Mvc;
+
+using FootballApi.WebUI1.ViewModels;
 
 namespace FootballApi.WebUI1.Controllers
 {
@@ -8,11 +11,13 @@ namespace FootballApi.WebUI1.Controllers
     {
         private readonly IPlayerService _playerService;
         private readonly ITeamService _teamService;
+  
 
         public TransferController(IPlayerService playerService, ITeamService teamService)
         {
             _playerService = playerService;
             _teamService = teamService;
+       
         }
 
         [HttpGet]
@@ -44,5 +49,9 @@ namespace FootballApi.WebUI1.Controllers
 
             return RedirectToAction("Index");
         }
+
+      
+
+
     }
 }

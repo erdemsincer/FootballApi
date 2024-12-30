@@ -1,0 +1,61 @@
+﻿@model IEnumerable<FootballApi.Application.Dtos.PlayerDto>
+
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml"; // Layout doğru şekilde kullanıldı
+    ViewData["Title"] = "Futbolcu Bilgileri";
+}
+
+<div class="container table-container">
+    <h1 class="text-center mb-4">Futbolcu Bilgileri</h1>
+
+    <div class="search-bar">
+        <input type="text" id="search" class="form-control" placeholder="Futbolcu ara..." />
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+    else
+    {
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Yaşı</th>
+                    <th>Pozisyon</th>
+                </tr>
+            </thead>
+            <tbody id="playerTable">
+                @foreach (var player in Model)
+                {
+                    <tr>
+                        <td>@player.Name</td>
+                        <td>@player.Age</td>
+                        <td>@player.Position</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("search");
+        const playerTable = document.getElementById("playerTable");
+
+        searchInput.addEventListener("input", function () {
+            const filter = searchInput.value.toLowerCase();
+            const rows = playerTable.getElementsByTagName("tr");
+
+            for (const row of rows) {
+                const nameCell = row.getElementsByTagName("td")[0];
+                if (nameCell) {
+                    const text = nameCell.textContent || nameCell.innerText;
+                    row.style.display = text.toLowerCase().includes(filter) ? "" : "none";
+                }
+            }
+        });
+    });
+</script>

@@ -90,6 +90,9 @@ namespace FootballApi.Persistence.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlayerStatisticId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Position")
                         .HasColumnType("nvarchar(max)");
 
@@ -143,7 +146,8 @@ namespace FootballApi.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.HasIndex("TeamId");
 
@@ -219,8 +223,8 @@ namespace FootballApi.Persistence.Migrations
             modelBuilder.Entity("FootballApi.Domain.Entities.PlayerStatistic", b =>
                 {
                     b.HasOne("FootballApi.Domain.Entities.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
+                        .WithOne("Statistic")
+                        .HasForeignKey("FootballApi.Domain.Entities.PlayerStatistic", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -231,6 +235,11 @@ namespace FootballApi.Persistence.Migrations
                     b.Navigation("Player");
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("FootballApi.Domain.Entities.Player", b =>
+                {
+                    b.Navigation("Statistic");
                 });
 
             modelBuilder.Entity("FootballApi.Domain.Entities.Team", b =>

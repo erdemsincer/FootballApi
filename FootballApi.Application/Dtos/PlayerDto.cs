@@ -24,6 +24,7 @@ namespace FootballApi.Application.Dtos
         public string? Position { get; set; }
         public string? Photo { get; set; }
         public int? TeamId { get; set; }
+        public PlayerStatisticDto? Statistic { get; set; }
 
     }
 }
