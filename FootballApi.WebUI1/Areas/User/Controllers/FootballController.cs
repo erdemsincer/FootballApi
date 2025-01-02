@@ -49,16 +49,27 @@ namespace FootballApi.WebUI1.Areas.User.Controllers
         [HttpGet]
         public async Task<IActionResult> CompareResult(int player1Id, int player2Id)
         {
-            var player1Stats = await _playerStatisticService.GetStatisticByPlayerIdAsync(player1Id);
-            var player2Stats = await _playerStatisticService.GetStatisticByPlayerIdAsync(player2Id);
-
-            if (player1Stats == null || player2Stats == null)
+            try
             {
-                ViewBag.ErrorMessage = "Seçilen oyunculardan biri veya her ikisi bulunamadı.";
+                // Oyuncuların istatistiklerini çek
+                var player1Stats = await _playerStatisticService.GetStatisticByPlayerIdAsync(player1Id);
+                var player2Stats = await _playerStatisticService.GetStatisticByPlayerIdAsync(player2Id);
+
+                // Eğer oyunculardan biri bulunamazsa hata döndür
+                if (player1Stats == null || player2Stats == null)
+                {
+                    ViewBag.ErrorMessage = "Seçilen oyunculardan biri veya her ikisi bulunamadı.";
+                    return RedirectToAction("Compare");
+                }
+
+                // Oyuncu istatistiklerini View'e gönder
+                return View(Tuple.Create(player1Stats, player2Stats));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = $"Karşılaştırma sırasında bir hata oluştu: {ex.Message}";
                 return RedirectToAction("Compare");
             }
-
-            return View(Tuple.Create(player1Stats, player2Stats));
         }
     }
 }

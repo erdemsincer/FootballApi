@@ -26,13 +26,13 @@ namespace FootballApi.Services
             }
         }
 
-        public async Task<PlayerStatistic> GetStatisticByPlayerIdAsync(int playerId)
+        public async Task<PlayerStatistic> GetStatisticByPlayerIdAsync(int id)
         {
             var statistic = await _dbContext.PlayerStatistics.Include(ps => ps.Player)
-                .FirstOrDefaultAsync(ps => ps.PlayerId == playerId);
+                .FirstOrDefaultAsync(ps => ps.PlayerId == id);
 
             if (statistic == null)
-                throw new KeyNotFoundException($"ID {playerId} ile eşleşen istatistik bulunamadı.");
+                throw new KeyNotFoundException($"ID {id} ile eşleşen istatistik bulunamadı.");
 
             return statistic;
         }
